@@ -1048,6 +1048,10 @@
         panel.classList.remove('hidden');
         panel.classList.add('visible');
 
+        // Kill any ongoing panel animations first
+        gsap.killTweensOf(panel);
+        gsap.killTweensOf('#panel-content > *');
+
         gsap.fromTo(panel,
             { opacity: 0, x: 25 },
             { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }
@@ -1062,6 +1066,9 @@
     function hidePanel() {
         detailPanel.classList.add('hidden');
         detailPanel.classList.remove('visible');
+        // Kill any ongoing GSAP animations on the panel
+        gsap.killTweensOf(detailPanel);
+        gsap.set(detailPanel, { opacity: 0, x: 0 });
     }
 
     // === Events ===
@@ -1099,6 +1106,8 @@
         });
 
         panelClose.addEventListener('click', () => {
+            gsap.killTweensOf(detailPanel);
+            gsap.killTweensOf('#panel-content > *');
             gsap.to(detailPanel, {
                 opacity: 0, x: 20, duration: 0.25, ease: 'power2.in',
                 onComplete: hidePanel
