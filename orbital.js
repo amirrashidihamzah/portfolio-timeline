@@ -1051,6 +1051,7 @@
         // Kill any ongoing panel animations first
         gsap.killTweensOf(panel);
         gsap.killTweensOf('#panel-content > *');
+        panel.removeAttribute('style');
 
         gsap.fromTo(panel,
             { opacity: 0, x: 25 },
@@ -1064,11 +1065,12 @@
 
     // === Hide Panel ===
     function hidePanel() {
+        // Force clear all inline styles GSAP may have set
+        gsap.killTweensOf(detailPanel);
+        gsap.killTweensOf('#panel-content > *');
         detailPanel.classList.add('hidden');
         detailPanel.classList.remove('visible');
-        // Kill any ongoing GSAP animations on the panel
-        gsap.killTweensOf(detailPanel);
-        gsap.set(detailPanel, { opacity: 0, x: 0 });
+        detailPanel.removeAttribute('style');
     }
 
     // === Events ===
@@ -1108,10 +1110,9 @@
         panelClose.addEventListener('click', () => {
             gsap.killTweensOf(detailPanel);
             gsap.killTweensOf('#panel-content > *');
-            gsap.to(detailPanel, {
-                opacity: 0, x: 20, duration: 0.25, ease: 'power2.in',
-                onComplete: hidePanel
-            });
+            detailPanel.classList.add('hidden');
+            detailPanel.classList.remove('visible');
+            detailPanel.removeAttribute('style');
             svg.querySelectorAll('.moon-node .moon-body').forEach(c => {
                 c.setAttribute('stroke-opacity', '0.5');
                 c.setAttribute('stroke-width', '1.5');
