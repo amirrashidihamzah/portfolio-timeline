@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amir Rashidi — QA & Software Engineer</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Muhd Amir Rashidi Bin Hamzah — Senior QA Engineer specializing in Test Automation, API Testing, and Software Development. 8+ years experience in IT.">
+    <meta name="keywords" content="Amir Rashidi, QA Engineer, Test Automation, Selenium, Java, Portfolio, Software Engineer, Malaysia">
+    <meta name="author" content="Muhd Amir Rashidi Bin Hamzah">
+
+    <!-- Open Graph (Facebook/LinkedIn sharing) -->
+    <meta property="og:title" content="Amir Rashidi — QA & Software Engineer Portfolio">
+    <meta property="og:description" content="Interactive portfolio showcasing 8+ years of experience in QA, Test Automation, and Software Development.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://amirrashidi.github.io/portfolio-timeline/">
+    <meta property="og:image" content="og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Amir Rashidi — QA & Software Engineer">
+    <meta name="twitter:description" content="Interactive solar system portfolio — 8+ years QA & Software Engineering experience.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Loading screen (inline to show immediately) -->
+    <style>
+        #loader {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #060610;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-planet {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffd93d, #ff8c00);
+            box-shadow: 0 0 30px rgba(255, 200, 50, 0.3);
+            animation: loader-pulse 1.2s ease-in-out infinite;
+        }
+        .loader-ring {
+            width: 80px; height: 20px;
+            border: 2px solid rgba(255, 200, 50, 0.3);
+            border-radius: 50%;
+            margin-top: -12px;
+            animation: loader-spin 2s linear infinite;
+        }
+        .loader-text {
+            margin-top: 1.5rem;
+            color: #8888a8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        @keyframes loader-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes loader-spin {
+            0% { transform: rotateX(60deg) rotate(0deg); }
+            100% { transform: rotateX(60deg) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-planet"></div>
+        <div class="loader-ring"></div>
+        <p class="loader-text">Initializing universe...</p>
+    </div>
+
+    <div id="app">
+        <!-- Stars background -->
+        <canvas id="stars-canvas"></canvas>
+
+        <!-- Main orbital SVG -->
+        <div id="orbital-container">
+            <svg id="orbital-svg"></svg>
+        </div>
+
+        <!-- Timeline View (for Work & Education) -->
+        <div id="timeline-container"></div>
+
+        <!-- Back button -->
+        <button id="back-btn" class="hidden" aria-label="Go back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back
+        </button>
+
+        <!-- Download Resume Button -->
+        <a id="download-btn" href="Resume Amir_Rashidi_Hamzah.pdf" download="Resume_Amir_Rashidi_Hamzah.pdf" title="Download Resume">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Resume
+        </a>
+
+        <!-- Sound Toggle -->
+        <button id="sound-toggle" aria-label="Toggle sound" title="Toggle sound">
+            <svg id="sound-on-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.08"/>
+            </svg>
+            <svg id="sound-off-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <line x1="23" y1="9" x2="17" y2="15"/>
+                <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+        </button>
+
+        <!-- Detail Panel -->
+        <div id="detail-panel" class="hidden">
+            <button id="panel-close" aria-label="Close panel">&times;</button>
+            <div id="panel-content">
+                <span class="panel-category"></span>
+                <h2 class="panel-title"></h2>
+                <p class="panel-date"></p>
+                <p class="panel-description"></p>
+                <div class="panel-tags"></div>
+            </div>
+        </div>
+
+        <!-- About Panel (Sun Click) -->
+        <div id="about-panel">
+            <button class="about-close" aria-label="Close">&times;</button>
+            <div class="about-sun-icon">☀️</div>
+            <h2 class="about-name"></h2>
+            <p class="about-title"></p>
+            <p class="about-bio"></p>
+            <div class="about-stats">
+                <div class="about-stat">
+                    <div class="about-stat-number">8+</div>
+                    <div class="about-stat-label">Years Experience</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-number">6</div>
+                    <div class="about-stat-label">Companies</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-number">2</div>
+                    <div class="about-stat-label">Certifications</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hint -->
+        <p id="hint-text">Click a planet to explore • Space to pause</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="data.js"></script>
+    <script src="orbital.js"></script>
+    <script src="sound.js"></script>
+</body>
+</html>
